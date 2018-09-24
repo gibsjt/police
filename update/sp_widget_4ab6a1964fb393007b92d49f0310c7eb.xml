@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function attachMate($scope, nowAttachmentHandler, $rootScope, spUtil, spModal, $log, spAriaUtil) {
+	$scope.errorMessages = [];
+	$scope.attachmentHandler = new nowAttachmentHandler(setAttachments, appendError);
+	$scope.data.action = "";
+
+	spUtil.recordWatch($scope, "sys_attachment", "table_sys_id=" + $scope.data.sys_id, function(name, data) {
+		$scope.attachmentHandler.getAttachmentList();
+	});
+
+	$scope.$evalAsync(function() {
+		$scope.attachmentHandler.setParams($scope.data.table, $scope.data.sys_id, 1024 * 1024 * $scope.data.maxAttachmentSize);
+		$scope.attachmentHandler.getAttachmentList();
+	})
+
+	$scope.hasAttachments = function() {
+		return $scope.attachments && $scope.attachments.length != 0;
+	}
+
+	
+
+	$scope.confirmDeleteAttachment = function(attachment) {
+		spModal.confirm("${Delete Attachment?}").then(function() {
+			$scope.attachmentHandler.deleteAttachment(attachment);
+		})
+	}
+
+	$scope.$on('dialog.upload_too_large.show', function(e){
+		$log.error($scope.data.largeAttachmentMsg);
+		spUtil.addErrorMessage($scope.data.largeAttachmentMsg);
+	});
+
+	$scope.$on('added_attachment', function(evt) {
+		$scope.data.action = "added";
+		spUtil.update($scope);
+	});
+
+	$scope.$on('sp.record.can_write', function(evt, answer) {
+		$scope.data.canWrite = answer;
+	});
+
+	function appendError(error) {
+		$scope.errorMessages.push(error);
+		spUtil.addErrorMessage(error.msg + error.fileName);
+	}
+
+	function setAttachments(attachments, action) {
+		if ($scope.submitting == true)
+			return;
+
+		$scope.attachments = attachments;
+		if (!action)
+			return;
+		
+		if (action === "added") {
+			spAriaUtil.sendLiveMessage($scope.data.attachmentSuccessMsg);
+		}
+
+		$scope.data.action = action;
+		spUtil.update($scope);
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.list-group-item {
+  border: none;
+}
+
+
+.select2-container.select2-allowclear .select2-choice .select2-chosen {
+  margin-right: 60px;
+}
+
+.mia i {
+  font-size: 6rem;
+}
+
+.mia {
+  color: #808080;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>photo_tracker</id>
+        <internal>false</internal>
+        <link/>
+        <name>photo tracker</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.view_role = gs.getUser().isMemberOf('478e53584f94e3407b92d49f0310c77e');
+	data.admin_role = gs.getUser().isMemberOf('56d3d6754f046f00196cd0af0310c750');
+	data.user_role = gs.getUser().isMemberOf('ee335e354f046f00196cd0af0310c77d');
+	
+	//if(data.view_role == true){ }
+		
+		if(data.admin_role == true){
+			data.active_fields = 'false';
+		}
+		else if(data.user_role == true){
+			data.active_fields = 'false';	
+		}
+		else{
+			data.active_fields = 'true';
+		}
+		
+	data.sys_id = $sp.getParameter("sys_id");
+	data.table = $sp.getParameter("table");
+	data.table = _getActualTable(data.table, data.number);
+	
+	
+	data.maxAttachmentSize = parseInt(gs.getProperty("com.glide.attachment.max_size", 1024));
+	if (isNaN(data.maxAttachmentSize))
+		data.maxAttachmentSize = 24;
+	data.largeAttachmentMsg = gs.getMessage("Attached files must be smaller than {0} - please try again", "" + data.maxAttachmentSize + "MB");
+	data.attachmentSuccessMsg = gs.getMessage("Attachment successfully uploaded");
+	
+	if (!data.table || !data.sys_id)
+		return;
+
+	var gr = new GlideRecord(data.table);
+	if (!gr.isValid())
+		return;
+	
+	if (!gr.get(data.number))
+		return;
+
+	if (input && input.action == "deleted") {
+		gr.comments = input.action + " an attachment";
+		gr.update();
+	}
+
+	function _getActualTable(table, sys_id) {
+		var rec = new GlideRecord(table);
+		if(data.sys_id != null || data.sys_id != ''){
+			if (rec.get(sys_id) && rec.getValue('sys_class_name')) {
+				return rec.getValue('sys_class_name');
+			}
+		}else{
+			
+		}
+		
+		return table;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-10 15:35:34</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>4ab6a1964fb393007b92d49f0310c7eb</sys_id>
+        <sys_mod_count>44</sys_mod_count>
+        <sys_name>photo tracker</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_widget_4ab6a1964fb393007b92d49f0310c7eb</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-09-07 20:53:06</sys_updated_on>
+        <template><![CDATA[
+  
+
+  <div class="panel-heading padder-b-none">
+    <h2 class="h4 sp-attachments-header panel-title pull-left">
+      ${Attachments}
+    </h2>
+      <sp-attachment-button></sp-attachment-button>
+    <div class="clearfix"></div>
+  </div>
+
+  <!-- small device - hide body unless there are attachments -->
+  <div class="panel-body" ng-class="{'hidden-xs': !hasAttachments()}">
+    <div ng-if="data.canWrite && data.canAttach" ng-file-drop="attachmentHandler.onFileSelect($files)" class="sp-attachments">
+      <div class="sp-no-attachments text-center text-italic text-muted" ng-show="!hasAttachments()">
+        <em>${Drop files here}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+
+    <div ng-if="!data.canWrite || !data.canAttach" class="sp-attachments">
+      <div class="sp-no-attachments text-center text-muted" ng-show="!hasAttachments()">
+        <em>${There are no attachments}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+  </div>
+
+  <!-- no attachments msg at phone size when can't write -->
+  <div class="panel-body visible-xs-block" ng-if="!hasAttachments() && (!data.canWrite || !data.canAttach)">
+    <div class="sp-no-attachments text-center text-muted">
+      <em>${There are no attachments}</em>
+    </div>
+  </div>
+
+]]></template>
+    </sp_widget>
+</record_update>

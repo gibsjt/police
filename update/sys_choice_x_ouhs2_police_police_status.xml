@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="status" table="x_ouhs2_police_police" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>ACTIVE</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence>0</sequence>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-01 16:13:11</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>8909579b4f6393c0196cd0af0310c723</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-01 16:13:11</sys_updated_on>
+            <value>active</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>STAND BY</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence>1</sequence>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-01 16:13:11</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>c909579b4f6393c0196cd0af0310c724</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-01 16:13:11</sys_updated_on>
+            <value>stand by</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>INACTIVE</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence>2</sequence>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-01 16:13:11</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>4909579b4f6393c0196cd0af0310c725</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-01 16:13:11</sys_updated_on>
+            <value>inactive</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>status</element>
+            <name>x_ouhs2_police_police</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-01 16:13:11</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>8509579b4f6393c0196cd0af0310c724</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>status</sys_name>
+            <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+            <sys_update_name>sys_choice_x_ouhs2_police_police_status</sys_update_name>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-01 16:13:11</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

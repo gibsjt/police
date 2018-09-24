@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil) {
+	var c = this;
+	$scope.date = new Date();
+	
+	$scope.tracker_title_onload = 'hideDiv';
+	
+	//alert('current - ' + c.data.datenumeric);
+	//alert('hr ago - ' + c.data.testseconds);
+	if($scope.data.show_day_buttons == true){
+		$scope.tracker_title_onload = 'tracker_title';
+	}
+	c.showByDay = function(daysago){
+		/*if(daysago == 30){
+			var URL = "?date_range=30";   //Redirect widget with new parameter
+			top.window.location = URL;
+		}
+		if(daysago == 10){
+			var URL2 = "?date_range=10";   //Redirect widget with new parameter
+			top.window.location = URL2;
+		}
+		if(daysago == 7){
+			var URL3 = "?date_range=10";   //Redirect widget with new parameter
+			top.window.location = URL3;
+		}
+		*/
+	}
+	
+	c.searchList = function(){
+		//alert('searchlist');
+		c.data.case_number_search = $scope.case_number_search;
+		c.data.officer_search = $scope.officer_search;
+		c.data.suspect_search = $scope.suspect_search;
+		c.data.from_search = $scope.from_search;
+		c.data.to_search = $scope.to_search;
+		alert(c.data.from_search + ' ' + c.data.to_search);
+		c.searchSubmit();
+	}
+	c.searchSubmit = function(){
+		//alert('searchsubmit');
+		var URL = "?case_number_search=" + c.data.case_number_search + "&officer_search=" + c.data.officer_search + "&suspect_search=" + c.data.suspect_search + "&from_search=" + c.data.from_search + "&to_search=" + c.data.to_search;//Redirect widget with new parameter
+		top.window.location = URL;
+	}
+	
+	$scope.orderField = "-sys_updated_on";
+	$scope.changeSort = function(field){
+		
+		$scope.orderField = field;
+	}
+	// this makes the UI watch the data tables and update on changes
+	spUtil.recordWatch($scope, "x_ouhs2_police_police", "", function(name, data){
+		spUtil.update($scope);
+	});
+	
+	//reference:https://www.youtube.com/watch?v=wzCGZ5Mq5iU&feature=youtu.be&t=1279
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.container{
+  background-color: #1e1f21;
+  color:white;
+}
+.col-md-12{
+ 	padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom:30px;
+}
+.col-sm-2, .col-sm-1{
+ 	border-right:2px solid white; 
+}
+.tracker_title, .search_area{
+ 	margin-bottom:25px;
+}
+.daybtn{
+ 	  font-size: 24px; 
+}
+.title_column{
+ 	font-size: 24px;
+  background-color: #710000;
+  border-bottom:2px solid white;
+  border-right:2px solid white;
+  
+}
+.title{
+ 	border-right:2px solid white; 
+}
+.data_rows{
+  font-size:18px;
+  padding-top:5px;
+  padding-bottom:10px;
+ 	border-bottom:2px solid white; 
+}
+.data_link:link {
+    color:white;
+}
+
+.data_link:visited {
+    color:white;
+}
+
+.data_link:hover {
+    color: #a9c0c4;
+}
+.col_end{
+ 	border:none; 
+}
+@media only screen and (max-width: 1200px) {
+    .title_column {
+        display:none;
+    }
+}
+
+.sort_icons{
+ 	float:right; 
+}
+.arrow {
+  width:10px;
+  cursor: pointer;
+}
+
+.hideDiv{
+ 	display:none; 
+}
+
+
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>List of all issues in the past 7 days.</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>police-7-day-tracker-list</id>
+        <internal>false</internal>
+        <link/>
+        <name>police_7_day_tracker_list</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var mydate = new GlideDateTime();
+	data.datenumeric = mydate.getNumericValue();
+	data.daysago7 = data.datenumeric - 604800;
+	data.daysago10 = data.datenumeric - 864000;
+	data.daysago30 = data.datenumeric - 2592000;
+	//data.testseconds = data.datenumeric - 5000;
+	
+	data.parameter_value = $sp.getParameter("id"); 
+	data.date_range = $sp.getParameter("date_range");
+	data.case_number_search = $sp.getParameter("case_number_search");
+	data.officer_search = $sp.getParameter("officer_search");
+	data.suspect_search = $sp.getParameter("suspect_search");
+	data.from_search = $sp.getParameter("from_search");
+	data.to_search = $sp.getParameter("to_search");
+	data.show_day_buttons = false;
+	data.issues = [];
+	
+		if(data.date_range == 30){
+			/*
+			var gr30 = new GlideRecord('x_ouhs2_police_police');
+			gr30.addQuery('epoch_datetime', '>', data.daysago30);
+			var gr30OR = gr30.addQuery('status', 'active');
+			gr30OR.addOrCondition('status', 'stand by');
+			if(data.parameter_value == 'police_high_threats'){
+				gr30.addQuery('threat_level', 'high');
+			}
+			gr30.orderByDesc('sys_updated_on');
+			gr30.query();
+			while(gr30.next()){
+				var issue = {};
+				issue.number = gr30.getDisplayValue('number');
+				issue.case_number = gr30.getDisplayValue('case_number');
+				issue.threat_level = gr30.getDisplayValue('threat_level');
+				issue.officer_name = gr30.getDisplayValue('officer_name');
+				issue.suspect = gr30.getDisplayValue('suspect');
+				issue.status = gr30.getDisplayValue('status');
+				issue.sys_id = gr30.getDisplayValue('sys_id');
+				issue.sys_updated_on = gr30.getValue('sys_updated_on');
+				data.issues.push(issue);
+				*/
+		}else{
+			var gr = new GlideRecord('x_ouhs2_police_police');
+			if(data.parameter_value == 'inactive_incidents'){
+				gr.addQuery('status', 'inactive');
+			}
+			if(data.parameter_value == null || data.parameter_value == '' || data.parameter_value == 'undefined'){
+				var grOR = gr.addQuery('status', 'active');
+			  grOR.addOrCondition('status', 'stand by');
+				data.show_day_buttons = true;
+			}
+			if(data.parameter_value == 'police_high_threats'){
+				gr.addQuery('threat_level', 'high');
+				var grOR = gr.addQuery('status', 'active');
+			  grOR.addOrCondition('status', 'stand by');
+			}
+			if(data.case_number_search != 'undefined' && data.case_number_search != '' && data.case_number_search != null){
+				gr.addQuery('case_number', 'CONTAINS', data.case_number_search);
+			}
+			if(data.officer_search != 'undefined' && data.officer_search != '' && data.officer_search != null){
+				gr.addQuery('officer_name', 'CONTAINS', data.officer_search);
+			}
+			if(data.suspect_search != 'undefined' && data.suspect_search != '' && data.suspect_search != null){
+				gr.addQuery('suspect', 'CONTAINS', data.suspect_search);
+			}
+			
+			
+			if(data.from_search != 'undefined' && data.from_search != '' && data.from_search != null){
+				gr.addQuery('sys_updated_on', '>', data.from_search);
+			}
+			if(data.to_search != 'undefined' && data.to_search != '' && data.to_search != null){
+				gr.addQuery('sys_updated_on', '<', data.to_search);
+			}
+			
+			
+			
+			gr.orderByDesc('sys_updated_on');
+			gr.query();
+			while(gr.next()){
+				var issue = {};
+				issue.number = gr.getDisplayValue('number');
+				issue.case_number = gr.getDisplayValue('case_number');
+				issue.threat_level = gr.getDisplayValue('threat_level');
+				issue.officer_name = gr.getDisplayValue('officer_name');
+				//issue.photo = gr.getDisplayValue('tableid_sys_id');
+				issue.suspect = gr.getDisplayValue('suspect');
+				issue.status = gr.getDisplayValue('status');
+				issue.sys_id = gr.getDisplayValue('sys_id');
+				issue.sys_updated_on = gr.getValue('sys_updated_on');
+				data.issues.push(issue);
+			}
+		}
+		
+
+
+  
+	
+	
+//reference:https://www.youtube.com/watch?v=wzCGZ5Mq5iU&feature=youtu.be&t=1279
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-06 19:21:35</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5be3b1494fbfd7c07b92d49f0310c707</sys_id>
+        <sys_mod_count>552</sys_mod_count>
+        <sys_name>police_7_day_tracker_list</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_widget_5be3b1494fbfd7c07b92d49f0310c707</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-09-07 14:55:19</sys_updated_on>
+        <template><![CDATA[<div class="form-group">
+  <div class="col-md-12">
+    <br />
+    <div class="">
+      <h2>
+        7 Day Tracker
+      </h2>
+      <h4>
+        Current Date: {{date | date:'yyyy-MM-dd'}}
+      </h4><br />
+     <!-- <div class="row {{tracker_title_onload}}">
+          <div class="col-sm-4 title daybuttons">
+          <button id="the30daybtn" class="btn btn-primary btn-block daybtn" ng-click="c.showByDay(30)">
+            30 Day
+          </button>
+          </div>
+          
+        	<div class="col-sm-4 title">
+          <button id="the10daybtn" class="btn btn-primary btn-block daybtn" ng-click="c.showByDay(10)">
+            10 Day
+          </button>
+          </div>
+          
+        	<div class="col-sm-4 title">
+          <button id="the7daybtn" class="btn btn-primary btn-block daybtn" ng-click="c.showByDay(7)">
+            7 Day
+          </button>
+        	</div>
+      </div>-->
+      
+      <div class="row search_area">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-2">
+              Search
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              Case Number<br />
+              <input type="text" id="case_number_search" ng-model="case_number_search" />
+            </div>
+            <div class="col-sm-2">
+              Officer<br />
+              <input type="text" id="officer_search" ng-model="officer_search" />
+            </div>
+            <div class="col-sm-2">
+              Suspect<br />
+              <input type="text" id="suspect_search" ng-model="suspect_search" />
+            </div>
+            <div class="col-sm-2">
+              Date<br />
+                    <input type='text' class="form-control"  id='datetimepicker_from' ng-model="from_search" placeholder="Start Date" />
+                    <input type='text' class="form-control" id="datetimepicker_to" ng-model="to_search" placeholder="End Date" />
+            </div>
+            
+            <div class="col-sm-2">
+              <button id="search_button" ng-click="c.searchList()">
+                Search
+              </button>
+            </div>
+            
+          </div>
+
+
+          
+          
+        	
+        </div>
+        
+      </div>
+      
+      
+    </div>
+
+    
+    <div class="container">
+      
+      <div class="row title_column">
+        <div class="col-sm-2 title">
+          Case
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-case_number')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('case_number')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+        <div class="col-sm-2 title">
+          Threat
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-threat_level')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('threat_level')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+        <div class="col-sm-2 title">
+          Officer
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-officer_name')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('officer_name')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+        <div class="col-sm-2 title">
+          Suspect
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-suspect')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('suspect')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+        <div class="col-sm-2 title">
+          Status
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-status')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('status')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+        <div class="col-sm-2 title col_end">
+          Updated
+          <div class="sort_icons">
+          	<img ng-click="changeSort('-sys_updated_on')" class="arrow" src="arrow_down.png"/>
+          	<img ng-click="changeSort('sys_updated_on')" class="arrow" src="arrow_up.png"/>
+					</div>
+        </div>
+      </div>
+      
+      <div class="row data_rows" ng-repeat="issue in data.issues | orderBy : orderField"><!-- | orderBy:orderField   | orderBy : '-case_number'-->
+        <a class="data_link" href="https://ouitservicesdev.service-now.com/police?id=police_form&sys_id={{issue.sys_id}}&table=x_ouhs2_police_police">
+        <div class="col-sm-2">
+          {{issue.case_number}}
+        </div>
+        <div class="col-sm-2">
+          {{issue.threat_level}}
+        </div>
+        <div class="col-sm-2">
+          {{issue.officer_name}}
+        </div>
+        <div class="col-sm-2">
+          {{issue.suspect}}
+        </div>
+        <div class="col-sm-2">
+          {{issue.status}}
+        </div>
+        <div class="col-sm-2 col_end">
+          {{issue.sys_updated_on}}
+        </div>
+        </a>  
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(function () {
+    $('#datetimepicker_from').datetimepicker({format: 'YYYY/MM/DD'});
+    $('#datetimepicker_to').datetimepicker({format: 'YYYY/MM/DD'});
+  });
+</script>]]></template>
+    </sp_widget>
+</record_update>

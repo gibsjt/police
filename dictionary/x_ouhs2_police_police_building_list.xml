@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="police_building_list" max_length="40" name="x_ouhs2_police_police_building_list" type="collection">
+        <element label="Address" max_length="40" name="address" type="string"/>
+        <element label="Name" max_length="40" name="name" type="string"/>
+    </element>
+</database>

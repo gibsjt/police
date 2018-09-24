@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>police_form</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description>Police issue log form.</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-01 15:53:34</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>104413174f6393c0196cd0af0310c76c</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>police_form</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_page_104413174f6393c0196cd0af0310c76c</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-09-07 14:52:23</sys_updated_on>
+        <title>police_7_day_tracker_form</title>
+    </sp_page>
+</record_update>

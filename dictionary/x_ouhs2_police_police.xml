@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="police_7_day_tracker" max_length="40" name="x_ouhs2_police_police" type="collection">
+        <element label="Case number" max_length="40" name="case_number" type="string"/>
+        <element label="Report Person Name" max_length="40" name="contact_name" type="string"/>
+        <element label="Report Person Phone" max_length="40" name="contact_phone" type="string"/>
+        <element label="Narrative" max_length="1000" name="description_issue" type="string"/>
+        <element label="Epoch datetime" max_length="40" name="epoch_datetime" type="longint"/>
+        <element label="Location" max_length="40" name="location" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element label="Officer name" max_length="40" name="officer_name" type="string"/>
+        <element choice="1" label="Status" max_length="40" name="status" type="string">
+            <choice>
+                <element label="ACTIVE" sequence="0" value="active"/>
+                <element label="STAND BY" sequence="1" value="stand by"/>
+                <element label="INACTIVE" sequence="2" value="inactive"/>
+            </choice>
+        </element>
+        <element label="Suspect Name" max_length="40" name="suspect" type="string"/>
+        <element label="Suspect Height/Build" max_length="100" name="suspect_height_build" type="string"/>
+        <element choice="1" label="Suspect Race" max_length="25" name="suspect_race" type="string">
+            <choice>
+                <element label="American Indian or Alaska Native" value="american_indian_or_alaska_native"/>
+                <element label="Asian" value="asian"/>
+                <element label="Black or African American" value="black_or_african_american"/>
+                <element label="White" value="white"/>
+            </choice>
+        </element>
+        <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
+        <element choice="1" label="Threat level" max_length="40" name="threat_level" type="string">
+            <choice>
+                <element label="HIGH" sequence="0" value="high"/>
+                <element label="MEDIUM" sequence="1" value="medium"/>
+                <element label="LOW" sequence="2" value="low"/>
+            </choice>
+        </element>
+    </element>
+</database>

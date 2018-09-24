@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance_link">
+    <sp_instance_link action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name>new_issue</class_name>
+        <color>default</color>
+        <css/>
+        <glyph>share-square-o</glyph>
+        <id/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <order>1</order>
+        <roles/>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description>Create a new issue.</short_description>
+        <size>md</size>
+        <sp_column display_value="1">5065eaba4f88af007b92d49f0310c70d</sp_column>
+        <sp_page display_value="police_form">104413174f6393c0196cd0af0310c76c</sp_page>
+        <sp_widget display_value="police_icon_link">63c075094fbfd7c07b92d49f0310c739</sp_widget>
+        <sys_class_name>sp_instance_link</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-06 19:11:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>29d175094fbfd7c07b92d49f0310c741</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>New Incident</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_instance_link_29d175094fbfd7c07b92d49f0310c741</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-08-24 19:42:06</sys_updated_on>
+        <title>New Incident</title>
+        <type>page</type>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"link_template": {
+		"value": "Color Box",
+		"displayValue": "Color Box"
+	}
+}]]></widget_parameters>
+    </sp_instance_link>
+</record_update>

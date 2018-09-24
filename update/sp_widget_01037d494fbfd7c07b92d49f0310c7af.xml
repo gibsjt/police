@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil) {
+	var c = this;
+
+	//alert(($scope.data.parameter_value));
+	$scope.data.ouhsc_text = 'UNIVERSITY OF OKLAHOMA HEALTH SCIENCES CENTER';
+	$scope.data.police_text = 'POLICE DEPARTMENT';
+	if($scope.data.parameter_value == 'police_high_threats'){
+		$scope.data.highthreat_text = 'High Threat Issues';
+	}
+	if($scope.data.parameter_value == 'inactive_incidents'){
+		$scope.data.inactive_incidents = 'Archived Incidents';
+	}
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.header_logo{
+	float:left; 
+  padding-right:20px;
+  padding-bottom:20px;
+}
+.header-title{
+  padding: 30px 0 0 0; 
+}
+.ouhsc_text{
+  font-size:24px; 
+}
+.police_text, .highthreat_text{
+  font-size:36px; 
+}
+.highthreat_text{
+  border-bottom:#710000 solid 2px;
+  color:#1e1f21;
+  margin-left:25px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Police header for all pages.</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>police-header</id>
+        <internal>false</internal>
+        <link/>
+        <name>police_header</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	data.parameter_value = $sp.getParameter("id"); 
+	
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-06 19:17:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>01037d494fbfd7c07b92d49f0310c7af</sys_id>
+        <sys_mod_count>45</sys_mod_count>
+        <sys_name>police_header</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_widget_01037d494fbfd7c07b92d49f0310c7af</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-09-11 16:27:16</sys_updated_on>
+        <template><![CDATA[<a href="https://ouitservicesdev.service-now.com/police">
+<div class="header_logo">
+  <img src="police_header_logo.png" width="166" height="145"/>
+</div>
+</a>
+<div class="header-title">
+  <span class="ouhsc_text">{{data.ouhsc_text}}</span>
+  <br />
+  <span class="police_text">{{data.police_text}}</span>
+  <span class="highthreat_text">{{data.highthreat_text}}{{data.inactive_incidents}}</span>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

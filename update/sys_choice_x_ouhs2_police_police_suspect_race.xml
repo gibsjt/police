@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="suspect_race" table="x_ouhs2_police_police" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>suspect_race</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>American Indian or Alaska Native</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence/>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-24 14:33:23</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>fbbe957a4fc4af007b92d49f0310c76c</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-24 14:37:09</sys_updated_on>
+            <value>american_indian_or_alaska_native</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>suspect_race</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Asian</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence/>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-24 14:37:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>04af15ba4fc4af007b92d49f0310c7de</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-24 14:37:39</sys_updated_on>
+            <value>asian</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>suspect_race</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Black or African American</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence/>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-24 14:38:19</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>13bf997a4fc4af007b92d49f0310c72b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-24 14:38:19</sys_updated_on>
+            <value>black_or_african_american</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>suspect_race</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>White</label>
+            <language>en</language>
+            <name>x_ouhs2_police_police</name>
+            <sequence/>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-24 14:38:52</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>55ef1dba4fc4af007b92d49f0310c7ca</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-24 14:38:52</sys_updated_on>
+            <value>white</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>suspect_race</element>
+            <name>x_ouhs2_police_police</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>ZREECE</sys_created_by>
+            <sys_created_on>2018-08-24 14:33:23</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>fbbe957a4fc4af007b92d49f0310c76d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>suspect_race</sys_name>
+            <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+            <sys_update_name>sys_choice_x_ouhs2_police_police_suspect_race</sys_update_name>
+            <sys_updated_by>ZREECE</sys_updated_by>
+            <sys_updated_on>2018-08-24 14:33:23</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

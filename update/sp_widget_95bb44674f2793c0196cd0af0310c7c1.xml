@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil) {
+	var c = this;
+	
+	//alert(c.data.user_role);
+
+
+	
+	//alert($scope.data.newsys_id);
+	
+	/*if($scope.data.sys_id == null || $scope.data.sys_id == ''){
+		var URL = "?id=police_form&sys_id=" + $scope.data.newsys_id + "&table=x_ouhs2_police_police";   //Redirect part of widget sc item custom
+		top.window.location = URL; 
+	}*/
+	
+	
+	
+	//alert($scope.data.active_fields);
+	
+	//$scope.isdisabled = $scope.data.active_fields;
+	//alert($scope.isdisabled);
+	//alert($scope.data.case_number);
+	//alert($scope.data.threat_level);
+	$scope.case_number = $scope.data.case_number;
+	$scope.officer_name = $scope.data.officer_name;
+	$scope.status = $scope.data.status;
+	$scope.contact_name = $scope.data.contact_name;
+	$scope.contact_phone = $scope.data.contact_phone;
+	$scope.threat_level = $scope.data.threat_level;
+	$scope.suspect = $scope.data.suspect;
+	$scope.suspect_race = $scope.data.suspect_race;
+	$scope.suspect_height_build = $scope.data.suspect_height_build;
+	$scope.location = $scope.data.location;
+	$scope.description_issue = $scope.data.description_issue;
+	
+
+	
+	
+	//check input values
+	c.checkInputs = function(){
+		//create an array to hold errors when requirements are not met
+		//this defines array empty and clears everytime function is called		
+		$scope.errors = [];
+		$scope.myErrorList = false;
+		$scope.focus=false;
+		$scope.requiredFieldofficer_name = false;
+		$scope.requiredFieldstatus = false;
+		$scope.requiredFieldthreat_level = false;
+		$scope.requiredFieldsuspect = false;
+		
+		
+		if(typeof($scope.officer_name) == 'undefined' || $scope.officer_name == ''){
+			$scope.errors.push('Officer Name');
+		}
+		if(typeof($scope.status) == 'undefined' || $scope.status == '' || $scope.status == null){
+			$scope.errors.push('Status');
+		}
+		if(typeof($scope.threat_level) == 'undefined' || $scope.threat_level == '' || $scope.threat_level == null){
+			$scope.errors.push('Threat Level');
+		}
+		if(typeof($scope.suspect) == 'undefined' || $scope.suspect == ''){
+			$scope.errors.push('Suspect');
+		}
+		
+		angular.forEach($scope.errors, function(value, key) {
+			//this.push(key + ': ' + value);
+			
+			if(value == 'Officer Name'){
+				$scope.requiredFieldofficer_name = true;
+			}
+			if(value == 'Status'){
+				$scope.requiredFieldstatus = true;
+			}
+			if(value == 'Threat Level'){
+				$scope.requiredFieldthreat_level = true;
+			}
+			if(value == 'Suspect'){
+				$scope.requiredFieldsuspect = true;
+			}
+		});
+		
+		if($scope.errors != null){
+			$scope.focus = true;
+			$scope.myErrorList = true;
+		}
+		
+		if($scope.errors == ''){
+			//alert('array is empty');
+			c.sendReferral();
+		}
+	}
+	
+	//function collecting all inputs from form
+	c.sendReferral = function() {
+		c.data.case_number = $scope.case_number;
+		c.data.officer_name = $scope.officer_name;
+		c.data.status = $scope.status;
+		c.data.contact_name = $scope.contact_name;
+		c.data.contact_phone = $scope.contact_phone;
+		c.data.threat_level = $scope.threat_level;
+		c.data.suspect = $scope.suspect;
+		c.data.suspect_race = $scope.suspect_race;
+		c.data.suspect_height_build = $scope.suspect_height_build;
+		c.data.location = $scope.location;
+		c.data.description_issue = $scope.description_issue;
+				
+		//alert($scope.imageSrc);
+		
+		c.validSubmit();//if requirments are met send to server
+
+	}
+	
+	//function submitting data inputs to server
+	c.validSubmit = function(){
+		c.server.update();
+		alert('Thank you, The 7 day tracker is now updated.')
+		setTimeout(function(){
+		window.location.replace("https://ouitservicesdev.service-now.com/police");
+		},10)
+		//window.location.reload();;
+		//setTimeout(function(){history.go(-1);},10);
+	}
+	
+	
+	
+}
+/*var ga = new GlideAjax('x_ouhs2_police.HelloWorld');
+ga.addParam('sysparm_user_name', "Bob");
+ga.getXMLAnswer(HelloWorldParse);
+function HelloWorldParse(response) {
+  var answer = response.responseXML.documentElement.getAttribute("answer");
+  alert(answer); }*/
+	
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.control-label{
+ 	margin-top:25px; 
+}
+
+.required_field{
+ 	color:red; 
+  font-size:24px;
+}
+.lable-title{
+  font-size:21px;
+  font-weight:bold;
+  clear:both;
+ 	padding-top:25px;
+  margin-bottom:-25px;
+}
+#error_box{
+ 	padding:15px 5px 15px 15px; 
+  color:red;
+  font-size:14px;
+}
+	#error_box span{
+  	font-size:18px;
+  }
+.error_list_group{
+	margin-left:-25px;
+}
+.submitbtn{
+  margin-top:25px; 
+  margin-bottom:25px;
+}
+
+.focusClass {
+  border:2px solid #dddfe1 ;
+  background-color: #f4f5f8;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Seven day tracker form for police.</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>police-issue-form</id>
+        <internal>false</internal>
+        <link/>
+        <name>police_7 _day_ tracker_issue_form</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.view_role = gs.getUser().isMemberOf('478e53584f94e3407b92d49f0310c77e');
+	data.admin_role = gs.getUser().isMemberOf('56d3d6754f046f00196cd0af0310c750');
+	data.user_role = gs.getUser().isMemberOf('ee335e354f046f00196cd0af0310c77d');
+	
+	//if(data.view_role == true){ }
+		
+		if(data.admin_role == true){
+		data.inactive_choice = 'INACTIVE';
+		data.inactive = 'inactive';
+		data.active_fields = 'false';
+		}
+		else if(data.user_role == true){
+			data.active_fields = 'false';	
+		}
+		else{
+			data.active_fields = 'true';
+		}
+
+
+
+
+		data.locations = [];
+		var locationlist = new GlideRecord('x_ouhs2_police_police_building_list');
+		locationlist.orderBy('name');
+		locationlist.query();
+		while(locationlist.next()){
+			var location = {};
+			location.name = locationlist.getDisplayValue('name');
+			location.address = locationlist.getDisplayValue('address');
+			data.locations.push(location);
+		}
+
+
+
+
+
+		data.sys_id = $sp.getParameter("sys_id");
+
+		var mydate = new GlideDateTime();
+		data.datenumeric = mydate.getNumericValue();
+
+		if(data.sys_id != null && data.sys_id != ''){
+
+			data.button_type = "Update";
+
+			var polissue = new GlideRecord('x_ouhs2_police_police'); 
+			polissue.addQuery('sys_id', data.sys_id);
+			polissue.orderByDesc('sys_updated_on');
+			polissue.query();
+			while(polissue.next()){
+				data.case_number = polissue.getDisplayValue('case_number'); 
+				data.officer_name = polissue.getDisplayValue('officer_name');
+				data.status = polissue.getValue('status'); 
+				data.contact_name = polissue.getDisplayValue('contact_name');
+				data.contact_phone = polissue.getDisplayValue('contact_phone');
+				data.threat_level = polissue.getValue('threat_level'); 
+				data.suspect = polissue.getDisplayValue('suspect');   
+				data.location = polissue.getDisplayValue('location');
+				data.description_issue = polissue.getDisplayValue('description_issue');
+				data.sys_id = polissue.getUniqueValue();   
+				data.sys_updated_on = polissue.getValue('sys_updated_on'); 
+			}
+
+			if(input){
+				var gr = new GlideRecord('x_ouhs2_police_police')
+				gr.get(data.sys_id);
+				//gr.setValue('case_number',input.case_numbernew);
+				gr.setValue('case_number',input.case_number);
+				gr.setValue('officer_name', input.officer_name);
+				gr.setValue('status', input.status);
+				gr.setValue('contact_name', input.contact_name);
+				gr.setValue('contact_phone', input.contact_phone);
+				gr.setValue('threat_level', input.threat_level);
+				gr.setValue('suspect', input.suspect);
+				gr.setValue('suspect_race', input.suspect_race);
+				gr.setValue('suspect_height_build', input.suspect_height_build);
+				gr.setValue('location', input.location);
+				gr.setValue('description_issue', input.description_issue);
+				gr.setValue('epoch_datetime', data.datenumeric);
+				gr.update();
+			}	
+
+			var gr_remove = new GlideRecord('x_ouhs2_police_police');
+				gr_remove.addQuery('officer_name',null);
+				gr_remove.addQuery('status',null);
+				gr_remove.addQuery('threat_level',null);
+				gr_remove.addQuery('suspect',null);
+				gr_remove.query();
+			while (gr_remove.next()) {
+				 //Delete each record in the query result set
+				 gr_remove.deleteRecord();
+			}
+
+		}else{
+
+		}
+		
+	
+	
+	
+	
+	
+	  
+	
+	
+
+})();
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>ZREECE</sys_created_by>
+        <sys_created_on>2018-08-01 19:54:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>95bb44674f2793c0196cd0af0310c7c1</sys_id>
+        <sys_mod_count>465</sys_mod_count>
+        <sys_name>police_7 _day_ tracker_issue_form</sys_name>
+        <sys_package display_value="police" source="x_ouhs2_police">ccda0fc74f6b93c07b92d49f0310c726</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="police">ccda0fc74f6b93c07b92d49f0310c726</sys_scope>
+        <sys_update_name>sp_widget_95bb44674f2793c0196cd0af0310c7c1</sys_update_name>
+        <sys_updated_by>ZREECE</sys_updated_by>
+        <sys_updated_on>2018-09-07 15:04:29</sys_updated_on>
+        <template><![CDATA[
+<div id="error_box" ng-show="myErrorList" ng-focus="focus" ng-class="{focusClass: focus}"><!---->
+ <span>The following input fields are required.</span>
+ <ul class="error_list_group">
+  <li ng-repeat="error in errors" class="error_list">
+    {{ error }}
+  </li>
+ </ul>
+</div>
+
+
+
+
+
+  
+<div class="lable-title">
+    Incident Information <hr />
+</div>
+
+<!-- case number-->
+<div class="form-group">
+  <div class="col-md-6">
+  <label class="control-label" for="case_number">CASE #</label>
+  <input ng-disabled="{{data.active_fields}}" id="case_number" ng-model="case_number" placeholder="Enter Case Number" class="form-control input-md" type="text" />
+  </div>
+</div>
+
+<!-- officer-->
+<div class="form-group">
+  <div class="col-md-6">
+  <label class="control-label" for="officer_name">Officer Name</label><span ng-show="requiredFieldofficer_name" class="required_field">*</span>
+  <input ng-disabled="{{data.active_fields}}" id="officer_name" ng-model="officer_name" placeholder="Enter Officer Name" class="form-control input-md" type="text">
+  </div>
+</div>
+<!-- status-->
+<div class="form-group">
+  <div class="col-md-6">
+  	<label class="control-label" for="status">Status</label><span ng-show="requiredFieldstatus" class="required_field">*</span>
+    <select ng-disabled="{{data.active_fields}}" id="status" ng-model="status" class="form-control">
+      <option value="active">ACTIVE</option>
+      <option value="stand by">STAND BY</option>
+      <option value="{{data.inactive}}">{{data.inactive_choice}}</option>
+    </select>			
+  </div>
+</div>
+<!-- threat level-->
+<div class="form-group">
+  <div class="col-md-6">
+  	<label class="control-label" for="threat_level">Threat Level</label><span ng-show="requiredFieldthreat_level" class="required_field">*</span>
+  	<select ng-disabled="{{data.active_fields}}" id="threat_level" ng-model="threat_level" class="form-control">
+      <option value="high">HIGH</option>
+      <option value="medium">MEDIUM</option>
+      <option value="low">LOW</option>
+    </select>		
+  </div>
+</div>
+<!-- contact name-->
+<div class="form-group">
+  <div class="col-md-6">
+  <label class="control-label" for="contact_name">Report Person Name</label>
+  <input ng-disabled="{{data.active_fields}}" id="contact_name" ng-model="contact_name" placeholder="Enter Contact Name" class="form-control input-md" type="text">
+  </div>
+</div>
+
+<!-- contact phone-->
+<div class="form-group">
+  <div class="col-md-6">
+  <label class="control-label" for="contact_phone">Report Person Phone</label>
+  <input ng-disabled="{{data.active_fields}}" id="contact_phone" ng-model="contact_phone" placeholder="Enter Contact Phone" class="form-control input-md" required="" type="text">
+  </div>
+</div>
+
+
+
+<!-- suspect name-->
+<div class="form-group">
+  <div class="col-md-4">
+  <label class="control-label" for="suspect">Suspect Name</label><span ng-show="requiredFieldsuspect" class="required_field">*</span>
+  <input ng-disabled="{{data.active_fields}}" id="suspect" ng-model="suspect" placeholder="Enter Suspect Name" class="form-control input-md" type="text">
+  </div>
+</div>
+
+<!-- suspect race-->
+<div class="form-group">
+  <div class="col-md-4">
+  	<label class="control-label" for="suspect_race">Suspect Race</label>
+  	<select ng-disabled="{{data.active_fields}}" id="suspect_race" ng-model="suspect_race" class="form-control">
+      <option value="american_indian_or_alaska_native">American Indian or Alaska Native</option>
+      <option value="asian">Asian</option>
+      <option value="black_or_african_american">Black or African American</option>
+      <option value="white">White</option>
+    </select>		
+  </div>
+</div>
+<!-- suspect height build-->
+<div class="form-group">
+  <div class="col-md-4">
+  <label class="control-label" for="suspect_height_build">Suspect Height/Build</label>
+  <input ng-disabled="{{data.active_fields}}" id="suspect_height_build" ng-model="suspect_height_build" placeholder="Enter Suspect Height/Build" class="form-control input-md" type="text">
+  </div>
+</div>
+
+<!-- location-->
+<div class="form-group">
+  <div class="col-md-12">
+    <label class="control-label" for="location">Location</label>
+  	<select ng-disabled="{{data.active_fields}}" id="location" ng-model="location" class="form-control">
+      <option ng-repeat="location in data.locations" value="{{location.name}}">{{location.name}} - {{location.address}}</option>
+    </select>		
+  </div>
+</div>
+
+<!-- description-->
+<div class="form-group">
+  <div class="col-md-12">
+  <label class="control-label" for="description_issue">Narrative</label>
+    <textarea ng-disabled="{{data.active_fields}}" class="form-control" id="description" ng-model="description_issue" ></textarea>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- submit button-->
+<div class="form-group">
+  <div class="col-md-12">
+    <button ng-disabled="{{data.active_fields}}" id="thesubmitbtn" class="btn btn-primary btn-block submitbtn" ng-click="c.checkInputs()">
+      {{data.button_type}}
+    </button>
+  </div>
+</div>
+    
+<script type="text/javascript">
+
+</script>
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>
